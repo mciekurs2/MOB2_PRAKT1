@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">prakt1</string>
+
+    <!--Fragment camera-->
+    <string name="photo">Take a photo</string>
+    <string name="photoName">Enter tittle first</string>
+
+    <!--Fragment audio-->
+    <string name="audio">Record audio</string>
+    <string name="audioName">Enter tittle first</string>
+
+    <!--RecordingActivity-->
+    <string name="record">Record</string>
+    <string name="stop">Stop</string>
+    <string name="play">Play</string>
+    <string name="save">Save</string>
+
+</resources>
