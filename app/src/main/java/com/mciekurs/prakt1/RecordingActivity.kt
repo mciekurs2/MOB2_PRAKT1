@@ -14,7 +14,7 @@ import kotlinx.android.synthetic.main.activity_recording.*
 
 class RecordingActivity : AppCompatActivity() {
 
-    //private val outputFile: String = Environment.getExternalStorageDirectory().absolutePath + "/recording.3gp"
+    /** Izveido globāt path */
     private var outputFile: String = Environment.getExternalStorageDirectory().absolutePath
     lateinit var audioRecorder: MediaRecorder
 
@@ -22,9 +22,11 @@ class RecordingActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_recording)
 
+        /** dabū no AudioFragment fileName un piesaista no path galā*/
         val fileName = intent.getStringExtra("fileName")
         outputFile += "/$fileName.3gp"
 
+        /** Uzstāda faila formātus un sāk audio ierakstīšanu */
         button_record.setOnClickListener {
             audioRecorder = MediaRecorder()
 
@@ -40,6 +42,7 @@ class RecordingActivity : AppCompatActivity() {
             Toast.makeText(applicationContext, "Recording started", Toast.LENGTH_SHORT).show()
         }
 
+        /** Pārtrauc faila ierakstīšanu */
         button_stop.setOnClickListener {
             audioRecorder.stop()
             audioRecorder.release()
@@ -51,6 +54,7 @@ class RecordingActivity : AppCompatActivity() {
             Toast.makeText(applicationContext, "Recording stopped", Toast.LENGTH_SHORT).show()
         }
 
+        /** Atskaņo ierakstīto failu */
         button_play.setOnClickListener {
             val mediaPlayer = MediaPlayer()
             mediaPlayer.setDataSource(outputFile)
@@ -59,6 +63,7 @@ class RecordingActivity : AppCompatActivity() {
             Toast.makeText(applicationContext, "Playing recorded audio", Toast.LENGTH_SHORT).show()
         }
 
+        /** Saglabā ierakstu sarkastā */
         button_save.setOnClickListener {
             audioList.add(AudioInfo(fileName))
             adapter.notifyDataSetChanged()

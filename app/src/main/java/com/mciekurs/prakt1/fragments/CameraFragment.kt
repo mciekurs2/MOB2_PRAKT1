@@ -19,9 +19,9 @@ import android.text.TextWatcher
 
 
 class CameraFragment : Fragment() {
-    //creates empty list of objects referring to PhotoInfo
+    /** Izveido tukšu sarakstu ar PhotoInfo elementiem */
     private var list = arrayListOf<PhotoInfo>()
-    //global value, because need to refresh it after image has been taken
+    /** Globāla vērtība, lai varētu nodrošināt notifyDataSetChanged */
     private val adapter = ImageAdapter(list)
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -32,6 +32,7 @@ class CameraFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        /** Kontrolē, vai teksta lauks ir tokš vai aizpildīts */
         editText_name.addTextChangedListener(object: TextWatcher{
             override fun afterTextChanged(s: Editable?) {}
 
@@ -44,12 +45,14 @@ class CameraFragment : Fragment() {
 
         })
 
+        /** Papildina rw adapter */
         val manager = LinearLayoutManager(view.context)
         manager.orientation = LinearLayoutManager.HORIZONTAL
         rw_camera.layoutManager = manager
         rw_camera.adapter = adapter
 
 
+        /** Izsauc  ACTION_IMAGE_CAPTURE kaa jaunu Intent*/
         button_camera.setOnClickListener {
             startActivityForResult(Intent(MediaStore.ACTION_IMAGE_CAPTURE), 0)
         }
@@ -58,9 +61,11 @@ class CameraFragment : Fragment() {
 
     }
 
+    /** Funckija, kur tiek izsaukta, kad atgriežas aktivitātē */
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         val extras = data?.extras
+        /** Saglabā bitmap sarakstā un parāda uzņemto bildi imageView */
         if (extras?.get("data") != null){
             val bitmap = extras.get("data") as Bitmap
             imageView_cameraPreview.setImageBitmap(bitmap)
